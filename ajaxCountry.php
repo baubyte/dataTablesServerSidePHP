@@ -27,9 +27,10 @@ $totalRegistros = $result['total_registros'];
 $countQueryFilter = mysqli_query($conexion,"SELECT COUNT(*) as total_registros FROM country WHERE 1 ".$searchQuery);
 $result = mysqli_fetch_assoc($countQueryFilter);
 $totalRegistrosFiltrado = $result['total_registros'];
-
+/**Comprobamos si es -1 es decir mostramos todos */
+$limit = ($rowPerPage==-1) ? "" :"LIMIT {$row}, {$rowPerPage}";
 /**Obtenemos todos los Registros */
-$countryQuery = "SELECT * FROM country WHERE 1 {$searchQuery} ORDER BY {$columnName} {$columnSortOrder} LIMIT {$row}, {$rowPerPage}";
+$countryQuery = "SELECT * FROM country WHERE 1 {$searchQuery} ORDER BY {$columnName} {$columnSortOrder} {$limit}";
 $countryResult = mysqli_query($conexion, $countryQuery);
 
 /**Array para los Resultados */
